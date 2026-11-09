@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flora Studios — Residential Space Planning & 3D Design</title>
+<meta name="description" content="Flora Studios provides refined floor plans, finish planning, and elevated 3D visualizations for residential kitchens, baths and interiors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F2EEE9; --linen:#E9E3DB; --paper:#FAF8F5; --ink:#3B3A38; --ink-soft:#6E6A64;
+  --brass:#C9A46C; --brass-deep:#A9844D; --green:#2D4548; --green-deep:#22363A;
+  --line:rgba(59,58,56,.16);
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Montserrat',Helvetica,Arial,sans-serif;
+  --pad:clamp(20px,5vw,72px); --max:1320px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+::selection{background:var(--brass);color:#fff}
+
+/* ---------- type ---------- */
+.eyebrow{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--brass-deep)}
+.eyebrow.light{color:var(--brass)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:300;line-height:1.08;letter-spacing:-.005em}
+.display{font-size:clamp(46px,7vw,104px);line-height:.98}
+.h2{font-size:clamp(36px,4.6vw,64px)}
+.h3{font-size:clamp(26px,2.6vw,36px);line-height:1.15}
+em,.it{font-style:italic;font-family:var(--serif)}
+.brass{color:var(--brass-deep)}
+.lede{font-family:var(--serif);font-size:clamp(20px,1.9vw,26px);line-height:1.45;font-weight:300;color:var(--ink)}
+p{text-wrap:pretty;color:var(--ink-soft)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{position:relative}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:14px;height:54px;padding:0 30px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;border:1px solid var(--ink);background:var(--ink);color:var(--cream);cursor:pointer;transition:background .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease);white-space:nowrap}
+.btn:hover{background:var(--green);border-color:var(--green)}
+.btn .ar{display:inline-block;width:22px;height:1px;background:currentColor;position:relative;transition:width .4s var(--ease)}
+.btn .ar::after{content:"";position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg)}
+.btn:hover .ar{width:32px}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.btn.brass{background:var(--brass);border-color:var(--brass);color:#fff}
+.btn.brass:hover{background:var(--brass-deep);border-color:var(--brass-deep)}
+.btn.on-dark.ghost{color:var(--cream);border-color:rgba(242,238,233,.5)}
+.btn.on-dark.ghost:hover{background:var(--cream);color:var(--green)}
+.link{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;display:inline-flex;gap:12px;align-items:center;padding-bottom:6px;background:linear-gradient(currentColor,currentColor) left bottom/100% 1px no-repeat;transition:background-size .5s var(--ease);cursor:pointer}
+.link:hover{background-size:40% 1px}
+
+/* ---------- header ---------- */
+.hdr{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .5s var(--ease),box-shadow .5s var(--ease),transform .5s var(--ease)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:92px;transition:height .5s var(--ease)}
+.hdr.solid{background:rgba(242,238,233,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+.hdr.solid .wrap{height:72px}
+.brand{display:flex;align-items:center;gap:14px;cursor:pointer}
+.brand img{width:38px;height:auto;filter:brightness(.32) sepia(.15)}
+.brand span{font-family:var(--serif);font-size:23px;letter-spacing:.06em;font-weight:400}
+.nav{display:flex;gap:clamp(20px,2.6vw,40px);align-items:center}
+.nav a{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;position:relative;padding:6px 0;cursor:pointer}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--brass-deep);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.nav a:hover::after,.nav a.on::after{transform:scaleX(1)}
+.nav .btn{height:44px;padding:0 22px}
+.nav .btn::after{display:none}
+.burger{display:none;width:44px;height:44px;border:0;background:none;cursor:pointer;position:relative}
+.burger i{position:absolute;left:10px;right:10px;height:1px;background:var(--ink);transition:transform .4s var(--ease),top .4s var(--ease)}
+.burger i:nth-child(1){top:18px}.burger i:nth-child(2){top:26px}
+body.menu .burger i:nth-child(1){top:22px;transform:rotate(45deg)}
+body.menu .burger i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.mnav{position:fixed;inset:0;z-index:45;background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);opacity:0;pointer-events:none;transition:opacity .5s var(--ease)}
+body.menu .mnav{opacity:1;pointer-events:auto}
+.mnav a{font-family:var(--serif);font-size:44px;line-height:1.35;font-weight:300;cursor:pointer;display:flex;align-items:baseline;gap:18px}
+.mnav a small{font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--brass-deep)}
+.mnav .foot{margin-top:40px;font-size:13px;color:var(--ink-soft)}
+
+/* ---------- pages ---------- */
+.page{display:none}
+.page.on{display:block;animation:pagein .8s var(--ease)}
+@keyframes pagein{from{opacity:0}to{opacity:1}}
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+.js .rv.d1{transition-delay:.12s}.js .rv.d2{transition-delay:.24s}.js .rv.d3{transition-delay:.36s}
+
+/* frames */
+.arch{border-radius:1000px 1000px 0 0;overflow:hidden}
+.ph{overflow:hidden;position:relative;background:var(--linen)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--ease)}
+.zoom:hover .ph img,.ph.zoom:hover img{transform:scale(1.045)}
+.cap{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-top:14px;display:flex;justify-content:space-between;gap:12px}
+
+/* ---------- HOME: hero ---------- */
+.hero{padding:150px 0 90px;min-height:100vh;display:flex;align-items:center}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,80px);align-items:center;width:100%}
+.hero h1{margin:26px 0 30px}
+.hero h1 .ln{display:block}
+.hero h1 em{color:var(--brass-deep)}
+.hero p.intro{max-width:440px;font-size:16px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px}
+.hero-art{position:relative;padding-left:8%}
+.hero-art .main{aspect-ratio:4/5.1}
+.hero-art .inset{position:absolute;left:-6%;bottom:-8%;width:44%;aspect-ratio:1.45;background:#fff;padding:10px;box-shadow:0 30px 60px -30px rgba(59,58,56,.35)}
+.hero-art .inset img{width:100%;height:100%;object-fit:cover}
+.hero-art .tag{position:absolute;right:-10px;top:14%;writing-mode:vertical-rl;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-soft)}
+.hero h1 .ln{overflow:hidden}
+.hero h1 .ln > span{display:inline-block;animation:rise 1.3s var(--ease) both}
+.hero h1 .ln:nth-child(2) > span{animation-delay:.12s}.hero h1 .ln:nth-child(3) > span{animation-delay:.24s}
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+.hero-art .main img{animation:settle 2.2s var(--ease) both}
+@keyframes settle{from{transform:scale(1.12)}to{transform:scale(1)}}
+
+/* marquee */
+.marq{background:var(--green);color:var(--cream);overflow:hidden;padding:26px 0;white-space:nowrap}
+.marq .trk{display:inline-flex;animation:marq 42s linear infinite}
+.marq span{font-family:var(--serif);font-size:clamp(24px,2.6vw,34px);font-style:italic;font-weight:300;padding:0 28px;display:inline-flex;align-items:center;gap:56px}
+.marq span::after{content:"";width:7px;height:7px;background:var(--brass);transform:rotate(45deg)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* statement */
+.stmt{padding:clamp(90px,12vw,170px) 0;text-align:center}
+.stmt blockquote{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.6vw,50px);line-height:1.22;max-width:1000px;margin:28px auto 0;text-wrap:balance}
+.stmt blockquote em{color:var(--brass-deep)}
+.mono{width:54px;margin:0 auto;filter:brightness(.32) sepia(.15);opacity:.9}
+
+/* section head */
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:clamp(40px,5vw,70px);flex-wrap:wrap}
+.shead h2{margin-top:18px}
+.shead p{max-width:400px}
+
+/* services preview */
+.svc-prev{padding:0 0 clamp(90px,10vw,150px)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,36px)}
+.svc-card{cursor:pointer;display:block}
+.svc-card .ph{aspect-ratio:3/3.7}
+.svc-card .meta{display:flex;gap:18px;align-items:baseline;margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
+.svc-card .n{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--brass-deep)}
+.svc-card h3{font-size:27px}
+.svc-card p{font-size:14px;margin-top:6px}
+.svc-card:nth-child(2){margin-top:60px}
+.svc-more{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,36px);margin-top:clamp(50px,6vw,80px);border-top:1px solid var(--line)}
+.svc-more a{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:24px;cursor:pointer;transition:color .3s,padding .4s var(--ease)}
+.svc-more a:hover{color:var(--brass-deep);padding-left:10px}
+.svc-more a small{font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--brass-deep)}
+
+/* portfolio preview */
+.pf-prev{background:var(--paper);padding:clamp(90px,10vw,150px) 0}
+.pf-mosaic{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(60px,7vw,100px);gap:clamp(12px,1.6vw,22px)}
+.pf-mosaic .t{cursor:pointer;position:relative}
+.pf-mosaic .t .ph{height:100%}
+.pf-mosaic .t .ov{position:absolute;inset:auto 0 0 0;padding:22px;color:#fff;background:linear-gradient(transparent,rgba(30,30,28,.55));opacity:0;transform:translateY(10px);transition:all .6s var(--ease)}
+.pf-mosaic .t:hover .ov{opacity:1;transform:none}
+.ov .eyebrow{color:#EBD7B5}
+.ov h4{font-size:26px;margin-top:4px}
+.t1{grid-column:1/8;grid-row:span 6}
+.t2{grid-column:8/13;grid-row:span 3}
+.t3{grid-column:8/13;grid-row:span 3}
+.t4{grid-column:1/5;grid-row:span 4}
+.t5{grid-column:5/13;grid-row:span 4}
+
+/* about preview */
+.ab-prev{padding:clamp(90px,10vw,160px) 0}
+.ab-prev .wrap{display:grid;grid-template-columns:.85fr 1fr;gap:clamp(40px,7vw,120px);align-items:center}
+.ab-prev .ph{aspect-ratio:3/4}
+.ab-prev .ph img{object-position:center 30%}
+.ab-prev h2{margin:18px 0 28px}
+.ab-prev .creds{display:grid;grid-template-columns:repeat(3,1fr);margin:40px 0;border-top:1px solid var(--line)}
+.creds div{padding:22px 16px 0 0}
+.creds b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(34px,3.4vw,48px);line-height:1;color:var(--ink)}
+.creds span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-top:10px;line-height:1.5}
+.sig{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--brass-deep);margin-top:6px}
+
+/* process */
+.proc{background:var(--linen);padding:clamp(90px,10vw,150px) 0}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:s;border-top:1px solid var(--line)}
+.step{padding:34px 28px 10px 0;position:relative}
+.step::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;background:var(--brass);transform:rotate(45deg)}
+.step .num{font-family:var(--serif);font-style:italic;font-size:54px;line-height:1;color:var(--brass-deep);font-weight:300}
+.step h4{font-size:24px;margin:18px 0 10px;line-height:1.15}
+.step p{font-size:14px}
+.proc .note{margin-top:60px;display:flex;align-items:center;gap:18px;font-family:var(--serif);font-size:22px;font-style:italic}
+.proc .note::before{content:"";width:48px;height:1px;background:var(--brass-deep)}
+
+/* plan to picture */
+.p2p{padding:clamp(90px,10vw,150px) 0}
+.p2p-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px);align-items:end}
+.p2p-grid .a .ph{aspect-ratio:1.6;background:#fff}
+.p2p-grid .a .ph img{object-fit:contain;padding:4%}
+.p2p-grid .b .ph{aspect-ratio:1.6}
+.p2p .mid{text-align:center;max-width:620px;margin:0 auto clamp(40px,5vw,70px)}
+.p2p .mid h2{margin:18px 0 20px}
+
+/* cta band */
+.cta{background:var(--green);color:var(--cream);padding:clamp(90px,11vw,160px) 0;overflow:hidden}
+.cta .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center}
+.cta h2{color:var(--cream)}
+.cta h2 em{color:var(--brass)}
+.cta p{color:rgba(242,238,233,.75);max-width:480px;margin:26px 0 40px}
+.cta .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.cta .ph{aspect-ratio:3/3.6}
+.cta .ph img{opacity:.92}
+
+/* footer */
+.ftr{background:var(--green-deep);color:rgba(242,238,233,.7);padding:90px 0 36px;font-size:13px}
+.ftr .top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:70px;border-bottom:1px solid rgba(242,238,233,.14)}
+.ftr .brand img{filter:brightness(1.7)}
+.ftr .brand span{color:var(--cream)}
+.ftr h5{font-size:10.5px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--brass);margin-bottom:20px}
+.ftr ul{list-style:none;display:grid;gap:10px}
+.ftr a{cursor:pointer;transition:color .3s}
+.ftr a:hover{color:var(--cream)}
+.ftr .tag{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--cream);margin-top:26px;max-width:320px;line-height:1.35}
+.ftr .bot{display:flex;justify-content:space-between;padding-top:30px;font-size:11px;letter-spacing:.08em;flex-wrap:wrap;gap:12px}
+
+/* ---------- inner page hero ---------- */
+.phero{padding:clamp(150px,16vw,210px) 0 clamp(60px,7vw,100px)}
+.phero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px);align-items:end}
+.phero h1{margin-top:22px}
+.phero h1 em{color:var(--brass-deep)}
+.crumb{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
+.crumb b{font-weight:500;color:var(--brass-deep)}
+
+/* ---------- ABOUT ---------- */
+.ab-hero .wrap{grid-template-columns:1fr .8fr;align-items:center}
+.ab-hero .ph{aspect-ratio:3/3.9}
+.ab-hero .ph img{object-position:center 28%}
+.ab-hero .lede{margin-top:32px;max-width:520px}
+.ab-story{padding:clamp(70px,9vw,140px) 0;background:var(--paper)}
+.ab-story .wrap{display:grid;grid-template-columns:.6fr 1fr;gap:clamp(30px,6vw,100px)}
+.ab-story .body p{font-size:16px;margin-bottom:22px;max-width:640px}
+.ab-story .body p:first-child::first-letter{font-family:var(--serif);font-size:84px;float:left;line-height:.8;padding:8px 14px 0 0;color:var(--brass-deep)}
+.pull{font-family:var(--serif);font-size:clamp(28px,3vw,42px);line-height:1.25;font-weight:300;margin:50px 0;padding-left:34px;border-left:1px solid var(--brass);max-width:620px;color:var(--ink)}
+.ab-creds{padding:clamp(70px,9vw,130px) 0}
+.ab-creds .creds{grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);display:grid}
+.ab-creds .creds div{padding:40px 30px 0 0}
+.ab-creds .creds p{margin-top:16px;font-size:14px;max-width:320px}
+.values{padding:clamp(70px,9vw,130px) 0;background:var(--linen)}
+.values .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px);align-items:center}
+.values ul{list-style:none;border-top:1px solid var(--line)}
+.values li{display:grid;grid-template-columns:50px 1fr;padding:26px 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:clamp(22px,2vw,28px);line-height:1.25}
+.values li i{font-size:16px;color:var(--brass-deep)}
+.values .ph{aspect-ratio:4/3.2}
+
+/* ---------- SERVICES ---------- */
+.svc-intro{max-width:520px}
+.svc-list{padding-bottom:clamp(60px,8vw,120px)}
+.svc-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,110px);align-items:center;padding:clamp(50px,6vw,90px) 0;border-top:1px solid var(--line)}
+.svc-row:nth-child(even) .img{order:2}
+.svc-row .img .ph{aspect-ratio:4/3.1}
+.svc-row .img.arch-w .ph{aspect-ratio:4/4.6}
+.svc-row .img.draw .ph{background:#fff}
+.svc-row .img.draw .ph img{object-fit:contain;padding:5%}
+.svc-row .n{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--brass-deep)}
+.svc-row h2{font-size:clamp(34px,3.6vw,52px);margin:12px 0 22px}
+.svc-row p{font-size:15.5px;max-width:480px}
+.svc-row ul{list-style:none;margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:0 30px;max-width:500px}
+.svc-row li{font-size:13px;padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;color:var(--ink)}
+.svc-row li::before{content:"";width:5px;height:5px;background:var(--brass);transform:rotate(45deg);flex:none}
+.idx{position:sticky;top:72px;z-index:5;background:rgba(242,238,233,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.idx .wrap{display:flex;gap:30px;overflow-x:auto;scrollbar-width:none;height:58px;align-items:center}
+.idx .wrap::-webkit-scrollbar{display:none}
+.idx a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;color:var(--ink-soft);cursor:pointer;transition:color .3s}
+.idx a:hover,.idx a.on{color:var(--ink)}
+.idx a.on{font-weight:500}
+
+.compare{background:var(--paper);padding:clamp(80px,10vw,140px) 0}
+.ctable{display:grid;grid-template-columns:1fr 1fr;margin-top:50px;border:1px solid var(--line)}
+.ctable > div{padding:0}
+.ctable .hd{padding:26px 34px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+.ctable .col-b{background:var(--green);color:var(--cream)}
+.ctable .col-b .hd{color:var(--brass);border-color:rgba(242,238,233,.15)}
+.ctable .r{padding:24px 34px;border-bottom:1px solid var(--line);font-size:15px;min-height:96px;display:flex;align-items:center;gap:16px}
+.ctable .col-a .r{color:var(--ink-soft)}
+.ctable .col-b .r{border-color:rgba(242,238,233,.15);font-family:var(--serif);font-size:21px;line-height:1.3}
+.ctable .col-b .r::before{content:"";width:6px;height:6px;background:var(--brass);transform:rotate(45deg);flex:none}
+.ctable .r:last-child{border-bottom:0}
+
+.invest{padding:clamp(80px,10vw,140px) 0}
+.invest .wrap{display:grid;grid-template-columns:.8fr 1fr;gap:clamp(30px,6vw,100px)}
+.invest p{font-size:16px;margin-bottom:20px;max-width:600px}
+.invest .box{margin-top:30px;padding:30px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;gap:30px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.invest .box span{font-family:var(--serif);font-size:22px;font-style:italic}
+
+/* ---------- PORTFOLIO ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:46px}
+.filters button{height:42px;padding:0 20px;border:1px solid var(--line);background:transparent;font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .35s var(--ease)}
+.filters button:hover{border-color:var(--ink)}
+.filters button.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.feat{cursor:pointer;margin-bottom:clamp(40px,5vw,70px)}
+.feat .ph{aspect-ratio:2.2}
+.feat .row{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-top:22px;flex-wrap:wrap}
+.feat h3{font-size:clamp(30px,3.4vw,48px);margin-top:8px}
+.pgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(30px,4vw,60px) clamp(16px,2vw,28px);padding-bottom:clamp(80px,10vw,140px)}
+.pcard{cursor:pointer;grid-column:span 6;transition:opacity .5s var(--ease)}
+.pcard.w4{grid-column:span 4}.pcard.w8{grid-column:span 8}.pcard.w5{grid-column:span 5}.pcard.w7{grid-column:span 7}
+.pcard .ph{aspect-ratio:4/3}
+.pcard.tall .ph{aspect-ratio:4/5}
+.pcard.arch-c .ph{border-radius:1000px 1000px 0 0}
+.pcard.drawing .ph{background:#fff}
+.pcard.drawing .ph img{object-fit:contain;padding:5%}
+.pcard h4{font-size:26px;margin-top:16px}
+.pcard .cap{margin-top:8px}
+.pcard .ph::after{content:"View project";position:absolute;right:16px;bottom:16px;background:var(--cream);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:10px 14px;opacity:0;transform:translateY(8px);transition:all .5s var(--ease)}
+.pcard:hover .ph::after,.feat:hover .ph::after{opacity:1;transform:none}
+.feat .ph::after{content:"View project";position:absolute;right:20px;bottom:20px;background:var(--cream);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:10px 14px;opacity:0;transform:translateY(8px);transition:all .5s var(--ease)}
+.pcard.hide{display:none}
+.pnote{font-size:12px;color:var(--ink-soft);letter-spacing:.04em;margin-top:-20px;margin-bottom:60px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(242,238,233,.98);display:grid;grid-template-rows:auto 1fr auto;opacity:0;pointer-events:none;transition:opacity .5s var(--ease)}
+.lb.on{opacity:1;pointer-events:auto}
+.lb-top{display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad);gap:20px}
+.lb-top h3{font-size:clamp(22px,2.4vw,32px)}
+.lb-x{width:48px;height:48px;border:1px solid var(--line);background:none;cursor:pointer;position:relative;flex:none;transition:border-color .3s}
+.lb-x:hover{border-color:var(--ink)}
+.lb-x::before,.lb-x::after{content:"";position:absolute;left:14px;right:14px;top:23px;height:1px;background:var(--ink);transform:rotate(45deg)}
+.lb-x::after{transform:rotate(-45deg)}
+.lb-stage{position:relative;display:flex;align-items:center;justify-content:center;padding:0 clamp(60px,8vw,120px);min-height:0}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 30px 80px -40px rgba(0,0,0,.35);background:#fff;transition:opacity .35s}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid var(--line);background:var(--cream);cursor:pointer;transition:all .3s}
+.lb-nav:hover{background:var(--ink);border-color:var(--ink)}
+.lb-nav:hover::before{border-color:var(--cream)}
+.lb-nav::before{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;border-top:1px solid var(--ink);border-right:1px solid var(--ink)}
+.lb-prev{left:clamp(8px,2vw,30px)}.lb-prev::before{transform:translate(-30%,-50%) rotate(-135deg)}
+.lb-next{right:clamp(8px,2vw,30px)}.lb-next::before{transform:translate(-70%,-50%) rotate(45deg)}
+.lb-bot{display:flex;justify-content:space-between;align-items:center;padding:20px var(--pad) 26px;gap:20px;flex-wrap:wrap}
+.lb-bot p{font-size:13px;max-width:640px}
+.lb-thumbs{display:flex;gap:8px}
+.lb-thumbs button{width:64px;height:44px;border:1px solid transparent;padding:0;cursor:pointer;background:#fff;opacity:.5;transition:all .3s;overflow:hidden}
+.lb-thumbs button img{width:100%;height:100%;object-fit:cover}
+.lb-thumbs button.on{opacity:1;border-color:var(--ink)}
+
+/* ---------- CONTACT ---------- */
+.ct{padding:clamp(150px,15vw,200px) 0 clamp(80px,10vw,140px)}
+.ct .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,7vw,120px)}
+.ct h1 em{color:var(--brass-deep)}
+.ct .lede{margin:30px 0 50px;max-width:460px}
+.ct .ph{aspect-ratio:4/3;margin-bottom:46px}
+.dl{border-top:1px solid var(--line)}
+.dl div{display:grid;grid-template-columns:130px 1fr;padding:18px 0;border-bottom:1px solid var(--line);font-size:14px;gap:16px}
+.dl dt{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
+.dl dd a{border-bottom:1px solid var(--brass);padding-bottom:2px;transition:color .3s}
+.dl dd a:hover{color:var(--brass-deep)}
+.form{background:var(--paper);padding:clamp(28px,4vw,60px);align-self:start;position:sticky;top:100px}
+.form h2{font-size:clamp(30px,3vw,42px);margin:14px 0 8px}
+.form > p{font-size:14px;margin-bottom:34px}
+.fld{position:relative;margin-bottom:26px}
+.fld label{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;font-weight:500}
+.fld input,.fld textarea{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;padding:10px 0 14px;font-size:16px;outline:none;transition:border-color .3s;border-radius:0}
+.fld textarea{resize:vertical;min-height:110px;line-height:1.6}
+.fld input:focus,.fld textarea:focus{border-color:var(--ink)}
+.fld input::placeholder,.fld textarea::placeholder{color:#B3ADA4}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label{margin:0;display:inline-flex;align-items:center;height:42px;padding:0 18px;border:1px solid var(--line);font-size:12px;letter-spacing:.04em;text-transform:none;color:var(--ink);cursor:pointer;transition:all .3s var(--ease);font-weight:400}
+.chips label:hover{border-color:var(--ink)}
+.chips input:checked + label{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.chips input:focus-visible + label{outline:2px solid var(--brass);outline-offset:2px}
+.err{font-size:12px;color:#A2543F;margin-top:6px;display:none}
+.fld.bad .err{display:block}
+.fld.bad input,.fld.bad textarea{border-color:#A2543F}
+.form .btn{width:100%;justify-content:center;margin-top:10px}
+.form .fine{font-size:12px;text-align:center;margin-top:18px}
+.done-msg{display:none;text-align:center;padding:40px 0}
+.done-msg .mono{margin-bottom:26px}
+.done-msg h2{margin-bottom:16px}
+.form.sent form{display:none}.form.sent .done-msg{display:block}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .steps{grid-template-columns:repeat(3,1fr);row-gap:20px}
+  .ftr .top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:900px){
+  .nav{display:none}.burger{display:block}
+  .hero{padding-top:120px;min-height:auto}
+  .hero .wrap,.ab-prev .wrap,.cta .wrap,.phero .wrap,.ab-story .wrap,.values .wrap,.invest .wrap,.ct .wrap,.svc-row{grid-template-columns:1fr}
+  .hero-art{padding-left:0;margin:20px 6% 40px 12%}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .svc-card:nth-child(2){margin-top:0}
+  .svc-card:nth-child(3){grid-column:1/-1}
+  .svc-card:nth-child(3) .ph{aspect-ratio:16/10}
+  .svc-more{grid-template-columns:1fr}
+  .pf-mosaic{grid-template-columns:1fr 1fr;grid-auto-rows:auto}
+  .pf-mosaic .t{grid-column:auto!important;grid-row:auto!important}
+  .pf-mosaic .t .ph{aspect-ratio:4/3}
+  .pf-mosaic .t1{grid-column:1/-1!important}
+  .pf-mosaic .t1 .ph{aspect-ratio:4/3.2}
+  .pf-mosaic .t5{grid-column:1/-1!important}
+  .pf-mosaic .t .ov{opacity:1;transform:none;padding:14px}
+  .ov h4{font-size:20px}
+  .svc-row:nth-child(even) .img{order:0}
+  .ab-hero .ph{max-width:460px}
+  .ctable .r{padding:20px;min-height:0}
+  .ctable .hd{padding:20px}
+  .pcard,.pcard.w4,.pcard.w8,.pcard.w5,.pcard.w7{grid-column:span 12}
+  .form{position:static}
+  .cta .ph{display:none}
+  .p2p-grid{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  body{font-size:14.5px}
+  .steps{grid-template-columns:1fr}
+  .step{padding-right:0}
+  .svc-grid{grid-template-columns:1fr}
+  .svc-card:nth-child(3) .ph{aspect-ratio:3/3.7}
+  .ab-prev .creds,.ab-creds .creds{grid-template-columns:1fr}
+  .creds div{padding:20px 0;border-bottom:1px solid var(--line)}
+  .ctable{grid-template-columns:1fr}
+  .ctable .col-a{display:none}
+  .ftr .top{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr;gap:0}
+  .svc-row ul{grid-template-columns:1fr}
+  .hero .ctas .btn,.cta .ctas .btn{width:100%;justify-content:center}
+  .lb-stage{padding:0 12px}
+  .lb-nav{top:auto;bottom:-6px;transform:none}
+  .lb-thumbs{display:none}
+  .feat .ph{aspect-ratio:4/3}
+  .dl div{grid-template-columns:1fr;gap:4px}
+  .mnav a{font-size:38px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a class="brand" data-go="home" aria-label="Flora Studios home"><img src="assets/logo.png" alt=""><span>Flora Studios</span></a>
+    <nav class="nav" aria-label="Main">
+      <a data-go="home">Home</a><a data-go="about">About</a><a data-go="services">Services</a><a data-go="portfolio">Portfolio</a>
+      <a class="btn" data-go="contact">Get in Touch</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><i></i><i></i></button>
+  </div>
+</header>
+<div class="mnav" id="mnav">
+  <a data-go="home"><small>01</small>Home</a><a data-go="about"><small>02</small>About</a><a data-go="services"><small>03</small>Services</a><a data-go="portfolio"><small>04</small>Portfolio</a><a data-go="contact"><small>05</small>Contact</a>
+  <div class="foot"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f69e939a9a99b6909a998497858283929f9985d89293859f9198">[email&#160;protected]</a> · @florastudios.design</div>
+</div>
+
+<!-- ============ HOME ============ -->
+<main class="page" id="p-home" data-screen-label="01 Home">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow rv">Residential Kitchen · Bath · Interior Space Planning</div>
+        <h1 class="display"><span class="ln"><span>Thoughtful Design.</span></span><span class="ln"><span><em>Beautiful Spaces.</em></span></span><span class="ln"><span>Inspired Living.</span></span></h1>
+        <p class="intro rv d1">Transforming ideas into thoughtfully planned spaces through refined design, functional layouts, and beautiful visual experiences.</p>
+        <div class="ctas rv d2">
+          <a class="btn" data-go="portfolio">Explore Our Work <i class="ar"></i></a>
+          <a class="btn ghost" data-go="contact">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="ph arch main"><img src="assets/g15b.jpg" alt="3D visualization of a white oak kitchen with arched doorways and brass pendants"></div>
+        <div class="inset rv d3"><img src="assets/g11.jpg" alt="Cabinetry elevation drawing, Macera Residence kitchen"></div>
+        <div class="tag">3D Visualization · Flora Studios</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marq" aria-hidden="true"><div class="trk" id="marq"></div></div>
+
+  <section class="stmt">
+    <div class="wrap">
+      <img class="mono rv" src="assets/logo.png" alt="">
+      <blockquote class="rv d1">Every wall shift, cabinet alignment, and appliance placement is considered <em>with construction in mind</em> — not just aesthetics.</blockquote>
+    </div>
+  </section>
+
+  <section class="svc-prev">
+    <div class="wrap">
+      <div class="shead">
+        <div><div class="eyebrow rv">What we do</div><h2 class="h2 rv d1">Design services, <em>start to finish</em></h2></div>
+        <p class="rv d2">Refined floor plans, finish planning, and detailed 3D visualizations designed to bring clarity before construction begins.</p>
+      </div>
+      <div class="svc-grid">
+        <a class="svc-card zoom rv" data-go="services" data-anchor="s-plan"><div class="ph arch"><img loading="lazy" src="assets/g06.jpg" alt="Sunlit kitchen with island seating"></div><div class="meta"><span class="n">01</span><div><h3>Interior Space Planning</h3><p>Layouts that truly work in real life.</p></div></div></a>
+        <a class="svc-card zoom rv d1" data-go="services" data-anchor="s-kb"><div class="ph arch"><img loading="lazy" src="assets/g07.jpg" alt="Primary bath with freestanding tub"></div><div class="meta"><span class="n">02</span><div><h3>Kitchen & Bath Design</h3><p>Cabinetry, appliances and fixtures, coordinated.</p></div></div></a>
+        <a class="svc-card zoom rv d2" data-go="services" data-anchor="s-3d"><div class="ph arch"><img loading="lazy" src="assets/g01.jpg" alt="Kitchen render with dark stone island"></div><div class="meta"><span class="n">03</span><div><h3>3D Visualization</h3><p>See your space before it’s built.</p></div></div></a>
+      </div>
+      <div class="svc-more">
+        <a data-go="services" data-anchor="s-fp">Floor Plan Development <small>04</small></a>
+        <a data-go="services" data-anchor="s-td">Technical Drawings <small>05</small></a>
+        <a data-go="services" data-anchor="s-fm">Finish & Material Selection <small>06</small></a>
+      </div>
+      <div style="margin-top:44px" class="rv"><a class="link" data-go="services">Discover Our Services <span>→</span></a></div>
+    </div>
+  </section>
+
+  <section class="pf-prev">
+    <div class="wrap">
+      <div class="shead">
+        <div><div class="eyebrow rv">Selected work</div><h2 class="h2 rv d1">Spaces, <em>planned & imagined</em></h2></div>
+        <a class="btn ghost rv d2" data-go="portfolio">Explore Our Portfolio <i class="ar"></i></a>
+      </div>
+      <div class="pf-mosaic">
+        <div class="t t1 zoom rv" data-proj="macera-kitchen"><div class="ph"><img loading="lazy" src="assets/g01.jpg" alt=""></div><div class="ov"><div class="eyebrow">Macera Residence</div><h4>Kitchen</h4></div></div>
+        <div class="t t2 zoom rv d1" data-proj="macera-mud"><div class="ph"><img loading="lazy" src="assets/g02.jpg" alt=""></div><div class="ov"><div class="eyebrow">Macera Residence</div><h4>Laundry & Mudroom</h4></div></div>
+        <div class="t t3 zoom rv d2" data-proj="pantry"><div class="ph"><img loading="lazy" src="assets/g05.jpg" alt=""></div><div class="ov"><div class="eyebrow">3D Rendering</div><h4>Pantry</h4></div></div>
+        <div class="t t4 zoom rv" data-proj="macera-bath"><div class="ph"><img loading="lazy" src="assets/g07.jpg" alt=""></div><div class="ov"><div class="eyebrow">Macera Residence</div><h4>Primary Bath</h4></div></div>
+        <div class="t t5 zoom rv d1" data-proj="marble"><div class="ph"><img loading="lazy" src="assets/g15a.jpg" alt=""></div><div class="ov"><div class="eyebrow">3D Visualization</div><h4>Marble & Brass Kitchen</h4></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ab-prev">
+    <div class="wrap">
+      <div class="ph arch rv"><img loading="lazy" src="assets/image02.jpg" alt="Flora, founder of Flora Studios"></div>
+      <div>
+        <div class="eyebrow rv">Meet Flora</div>
+        <h2 class="h2 rv d1">Where architecture <em>meets livable design</em></h2>
+        <p class="rv d1">With over a decade of professional experience in architecture and design, Flora brings a strong architectural foundation to every project. Her approach blends thoughtful aesthetics with the technical understanding needed to create spaces that are both beautiful and buildable.</p>
+        <div class="creds rv d2">
+          <div><b>10+</b><span>Years in architecture & design</span></div>
+          <div><b>7</b><span>Years of design education</span></div>
+          <div><b>MBA</b><span>Business-minded project clarity</span></div>
+        </div>
+        <a class="link rv d3" data-go="about">Learn More About Flora <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="proc">
+    <div class="wrap">
+      <div class="shead">
+        <div><div class="eyebrow rv">The process</div><h2 class="h2 rv d1">Five steps to <em>clarity</em></h2></div>
+        <p class="rv d2">A calm, collaborative path from first conversation to a build-ready presentation package.</p>
+      </div>
+      <div class="steps" id="steps"></div>
+      <div class="note rv">All files are delivered digitally and ready for builder coordination.</div>
+    </div>
+  </section>
+
+  <section class="p2p">
+    <div class="wrap">
+      <div class="mid">
+        <div class="eyebrow rv">From plan to picture</div>
+        <h2 class="h2 rv d1">The drawing your builder needs. <em>The view you’ve imagined.</em></h2>
+        <p class="rv d2">Flora bridges the gap between architectural plans and livable design — ensuring your space is not only beautiful, but build-ready.</p>
+      </div>
+      <div class="p2p-grid">
+        <figure class="a rv"><div class="ph"><img loading="lazy" src="assets/g09.jpg" alt="Dimensioned cabinetry elevation"></div><figcaption class="cap"><span>Technical elevation</span><span>Macera Residence</span></figcaption></figure>
+        <figure class="b rv d1"><div class="ph zoom"><img loading="lazy" src="assets/g10.jpg" alt="3D render of the same cabinetry wall" style="object-position:center 60%"></div><figcaption class="cap"><span>3D visualization</span><span>Macera Residence</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow light rv">Begin your project</div>
+        <h2 class="h2 rv d1">Let’s design something beautiful — <em>and buildable.</em></h2>
+        <p class="rv d2">Whether you need help refining a layout or developing a complete design with drawings and photorealistic 3D views, Flora would love to learn about your project. Expect a reply within one business day.</p>
+        <div class="ctas rv d3"><a class="btn brass" data-go="contact">Discuss Your Project <i class="ar"></i></a><a class="btn ghost on-dark" href="/cdn-cgi/l/email-protection#dfb7bab3b3b09fb9b3b0adbeacabaabbb6b0acf1bbbaacb6b8b1">Email Flora</a></div>
+      </div>
+      <div class="ph arch rv d2"><img loading="lazy" src="assets/g03.jpg" alt="Green mudroom with checkerboard floor"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ ABOUT ============ -->
+<main class="page" id="p-about" data-screen-label="02 About">
+  <section class="phero ab-hero">
+    <div class="wrap">
+      <div>
+        <div class="crumb rv">Flora Studios <b>/ About</b></div>
+        <h1 class="display rv d1">Hello, <em>I’m Flora.</em></h1>
+        <p class="lede rv d2">I help homeowners see — clearly and beautifully — what their home can become, long before the first wall comes down.</p>
+      </div>
+      <div class="ph arch rv d1"><img src="assets/image02.jpg" alt="Portrait of Flora"></div>
+    </div>
+  </section>
+
+  <section class="ab-story">
+    <div class="wrap">
+      <div><div class="eyebrow rv">My story</div><h2 class="h2 rv d1" style="margin-top:18px">A strong architectural <em>foundation</em></h2></div>
+      <div class="body">
+        <p class="rv">With over a decade of professional experience in architecture and design, I bring a strong architectural foundation to every project. Seven years of design education — and an MBA — taught me to see a home both as a place to live and as a project that has to come together on time, on budget and on paper.</p>
+        <p class="rv">My approach blends thoughtful aesthetics with the technical understanding needed to create spaces that are both beautiful and buildable. I work closely with you through every step, from layout to finishes, so the result feels cohesive and unmistakably yours.</p>
+        <div class="pull rv">“Every wall shift, cabinet alignment, and appliance placement is considered with construction in mind — not just aesthetics.”</div>
+        <p class="rv">Today, Flora Studios specializes in residential kitchens, baths and interior space planning — delivering refined floor plans, finish planning and detailed 3D visualizations that bring clarity before construction begins.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ab-creds">
+    <div class="wrap">
+      <div class="eyebrow rv" style="margin-bottom:30px">Experience & expertise</div>
+      <div class="creds">
+        <div class="rv"><b>10+ years</b><p>Of professional experience across architecture and residential design.</p></div>
+        <div class="rv d1"><b>7 years</b><p>Of formal design education, grounding every layout in proportion, detail and craft.</p></div>
+        <div class="rv d2"><b>MBA</b><p>A business lens that brings structure, clear deliverables and smooth builder coordination.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow rv">Aesthetics + function</div>
+        <h2 class="h2 rv d1" style="margin:18px 0 36px">Designed for clients <em>who value…</em></h2>
+        <ul>
+          <li class="rv"><i>i.</i>Layouts that truly work in real life</li>
+          <li class="rv"><i>ii.</i>Cabinetry planning aligned with architectural drawings</li>
+          <li class="rv"><i>iii.</i>Clear, dimensioned plans your builder can execute with confidence</li>
+          <li class="rv"><i>iv.</i>Refined 3D visuals that feel elevated and intentional</li>
+        </ul>
+      </div>
+      <div class="ph zoom rv d1"><img loading="lazy" src="assets/image03.jpg" alt="Kitchen render paired with its cabinetry elevation" style="object-position:center top"></div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow light rv">Let’s talk</div>
+        <h2 class="h2 rv d1">Tell me about <em>your space.</em></h2>
+        <p class="rv d2">We’ll start with a relaxed Zoom consultation to understand your vision, lifestyle and project goals.</p>
+        <div class="ctas rv d3"><a class="btn brass" data-go="contact">Discuss Your Project <i class="ar"></i></a><a class="btn ghost on-dark" data-go="portfolio">View Portfolio</a></div>
+      </div>
+      <div class="ph arch rv d2"><img loading="lazy" src="assets/g08.jpg" alt="White kitchen with garden windows"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ SERVICES ============ -->
+<main class="page" id="p-services" data-screen-label="03 Services">
+  <section class="phero">
+    <div class="wrap">
+      <div>
+        <div class="crumb rv">Flora Studios <b>/ Services</b></div>
+        <h1 class="display rv d1">Clarity <em>before construction.</em></h1>
+      </div>
+      <p class="lede svc-intro rv d2">From the first layout sketch to photorealistic renders, each service is designed to give you — and your builder — complete confidence in the plan.</p>
+    </div>
+  </section>
+  <nav class="idx" id="idx"><div class="wrap"></div></nav>
+  <section class="svc-list"><div class="wrap" id="svcRows"></div></section>
+
+  <section class="compare">
+    <div class="wrap">
+      <div class="eyebrow rv">Why Flora Studios</div>
+      <h2 class="h2 rv d1" style="margin-top:18px;max-width:800px">Bridging the gap between plans and <em>livable design</em></h2>
+      <div class="ctable rv d2">
+        <div class="col-a"><div class="hd">Architectural plans alone</div><div class="r">Show walls and rooms — but not how you’ll move through them.</div><div class="r">Leave cabinetry and appliance placement to guesswork on site.</div><div class="r">Ask you to imagine finishes from a sample board.</div><div class="r">Separate the beautiful from the buildable.</div></div>
+        <div class="col-b"><div class="hd">With Flora Studios</div><div class="r">Layouts refined around how you actually live.</div><div class="r">Cabinetry planning aligned with your architectural drawings.</div><div class="r">Fully modeled 3D visuals of every finish, before you commit.</div><div class="r">Dimensioned, build-ready plans your builder can trust.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proc">
+    <div class="wrap">
+      <div class="shead"><div><div class="eyebrow rv">How it works</div><h2 class="h2 rv d1">The <em>process</em></h2></div></div>
+      <div class="steps" id="steps2"></div>
+    </div>
+  </section>
+
+  <section class="invest">
+    <div class="wrap">
+      <div><div class="eyebrow rv">Investment</div><h2 class="h2 rv d1" style="margin-top:18px">Every project is <em>tailored</em></h2></div>
+      <div>
+        <p class="rv">Every project is different in size and scope. After learning about your space and what you’d like help with, Flora puts together a tailored proposal outlining the design services, deliverables, timeline, and fee.</p>
+        <p class="rv">Whether you need help refining a layout or developing a complete design with drawings and photorealistic 3D views, she’d love to learn about your project.</p>
+        <div class="box rv"><span>A reply within one business day.</span><a class="btn" data-go="contact">Submit an Inquiry <i class="ar"></i></a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ PORTFOLIO ============ -->
+<main class="page" id="p-portfolio" data-screen-label="04 Portfolio">
+  <section class="phero">
+    <div class="wrap">
+      <div>
+        <div class="crumb rv">Flora Studios <b>/ Portfolio</b></div>
+        <h1 class="display rv d1">Selected <em>work</em></h1>
+      </div>
+      <p class="lede rv d2">See how thoughtful layout planning transforms a space before construction even begins.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="filters rv" id="filters"></div>
+      <div class="feat zoom rv" data-proj="macera-kitchen" id="feat">
+        <div class="ph"><img src="assets/g15a.jpg" alt="" id="featImg"></div>
+        <div class="row"><div><div class="eyebrow">Featured · Macera Residence</div><h3>The Macera Kitchen</h3></div><span class="link">View Project →</span></div>
+      </div>
+      <div class="pgrid" id="pgrid"></div>
+    </div>
+  </section>
+  <section class="cta">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow light rv">Your space, next</div>
+        <h2 class="h2 rv d1">Imagine your home <em>in this light.</em></h2>
+        <div class="ctas rv d2" style="margin-top:40px"><a class="btn brass" data-go="contact">Discuss Your Project <i class="ar"></i></a><a class="btn ghost on-dark" data-go="services">Discover Our Services</a></div>
+      </div>
+      <div class="ph arch rv d2"><img loading="lazy" src="assets/g05.jpg" alt="Pantry render"></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ CONTACT ============ -->
+<main class="page" id="p-contact" data-screen-label="05 Contact">
+  <section class="ct">
+    <div class="wrap">
+      <div>
+        <div class="crumb rv">Flora Studios <b>/ Contact</b></div>
+        <h1 class="display rv d1">Let’s begin <em>your project.</em></h1>
+        <p class="lede rv d2">Share a little about your space and what you’d like help with. Flora reads every inquiry personally and replies within one business day.</p>
+        <div class="ph arch rv d2" style="max-width:420px;aspect-ratio:4/4.4"><img loading="lazy" src="assets/g08.jpg" alt="Kitchen render with garden windows"></div>
+        <dl class="dl rv">
+          <div><dt>Email</dt><dd><a href="/cdn-cgi/l/email-protection#375f525b5b5877515b584556444342535e5844195352445e5059"><span class="__cf_email__" data-cfemail="ff979a939390bf9993908d9e8c8b8a9b96908cd19b9a8c969891">[email&#160;protected]</span></a></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/florastudios.design/" target="_blank" rel="noopener">@florastudios.design</a></dd></div>
+          <div><dt>Consultations</dt><dd>Virtual, via Zoom</dd></div>
+          <div><dt>Response</dt><dd>Within one business day</dd></div>
+        </dl>
+      </div>
+      <div class="form rv d1" id="formBox">
+        <form id="inq" novalidate>
+          <div class="eyebrow">Inquiry form</div>
+          <h2>Tell us about your space</h2>
+          <p>It takes about two minutes. No commitment — just a conversation.</p>
+          <div class="two">
+            <div class="fld"><label for="f-name">Full name</label><input id="f-name" name="name" placeholder="Your name" autocomplete="name"><div class="err">Please share your name.</div></div>
+            <div class="fld"><label for="f-email">Email address</label><input id="f-email" name="email" type="email" placeholder="you@email.com" autocomplete="email"><div class="err">Please enter a valid email.</div></div>
+          </div>
+          <div class="fld" id="f-type"><label>Project type</label>
+            <div class="chips" role="radiogroup">
+              <input type="radio" name="type" id="t1" value="Kitchen"><label for="t1">Kitchen</label>
+              <input type="radio" name="type" id="t2" value="Bathroom"><label for="t2">Bathroom</label>
+              <input type="radio" name="type" id="t3" value="Space planning"><label for="t3">Interior space planning</label>
+              <input type="radio" name="type" id="t4" value="Laundry / Mudroom"><label for="t4">Laundry / Mudroom</label>
+              <input type="radio" name="type" id="t5" value="3D visualization"><label for="t5">3D visualization only</label>
+              <input type="radio" name="type" id="t6" value="Other"><label for="t6">Something else</label>
+            </div>
+            <div class="err">Please choose a project type.</div>
+          </div>
+          <div class="fld"><label for="f-desc">Brief project description</label><textarea id="f-desc" name="desc" placeholder="Tell us about your home, your goals, and where you are in the process…"></textarea><div class="err">A sentence or two helps us prepare.</div></div>
+          <button class="btn" type="submit">Submit Inquiry <i class="ar"></i></button>
+          <p class="fine">Prefer email? Write to <a href="/cdn-cgi/l/email-protection#8ce4e9e0e0e3cceae0e3feedfff8f9e8e5e3ffa2e8e9ffe5ebe2" style="border-bottom:1px solid var(--brass)"><span class="__cf_email__" data-cfemail="b2dad7dededdf2d4deddc0d3c1c6c7d6dbddc19cd6d7c1dbd5dc">[email&#160;protected]</span></a></p>
+        </form>
+        <div class="done-msg">
+          <img class="mono" src="assets/logo.png" alt="">
+          <h2>Thank you<span id="thxName"></span>.</h2>
+          <p>Your inquiry is on its way. Flora will be in touch within one business day.</p>
+          <div style="margin-top:30px"><a class="link" data-go="portfolio">Browse the portfolio →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <a class="brand" data-go="home"><img src="assets/logo.png" alt=""><span>Flora Studios</span></a>
+        <div class="tag">Thoughtful layout planning & elevated 3D design.</div>
+      </div>
+      <div><h5>Explore</h5><ul><li><a data-go="home">Home</a></li><li><a data-go="about">About</a></li><li><a data-go="services">Services</a></li><li><a data-go="portfolio">Portfolio</a></li><li><a data-go="contact">Contact</a></li></ul></div>
+      <div><h5>Services</h5><ul><li><a data-go="services" data-anchor="s-plan">Space Planning</a></li><li><a data-go="services" data-anchor="s-kb">Kitchen & Bath</a></li><li><a data-go="services" data-anchor="s-fp">Floor Plans</a></li><li><a data-go="services" data-anchor="s-3d">3D Visualization</a></li></ul></div>
+      <div><h5>Connect</h5><ul><li><a href="/cdn-cgi/l/email-protection#e48c8188888ba482888b9685979091808d8b97ca8081978d838a"><span class="__cf_email__" data-cfemail="f69e939a9a99b6909a998497858283929f9985d89293859f9198">[email&#160;protected]</span></a></li><li><a href="https://www.instagram.com/florastudios.design/" target="_blank" rel="noopener">Instagram ↗</a></li><li><a data-go="contact">Begin Your Project</a></li></ul></div>
+    </div>
+    <div class="bot"><span>© 2026 Flora Studios LLC. All rights reserved.</span><span>Residential Space Planning & 3D Design Studio</span></div>
+  </div>
+</footer>
+
+<!-- lightbox -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Project viewer">
+  <div class="lb-top"><div><div class="eyebrow" id="lbEy"></div><h3 id="lbT"></h3></div><button class="lb-x" id="lbX" aria-label="Close"></button></div>
+  <div class="lb-stage"><button class="lb-nav lb-prev" id="lbP" aria-label="Previous image"></button><img id="lbI" alt=""><button class="lb-nav lb-next" id="lbN" aria-label="Next image"></button></div>
+  <div class="lb-bot"><p id="lbD"></p><div class="lb-thumbs" id="lbTh"></div></div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+document.documentElement.classList.add('js');
+const A='assets/';
+
+/* ---------- data ---------- */
+const STEPS=[
+ ['Discovery Consultation','We meet via Zoom to understand your vision, lifestyle, and project goals.'],
+ ['Layout & Space Planning','Thoughtful floor plan development with cabinetry and appliance coordination.'],
+ ['Technical Detailing','Elevations and dimensions prepared as needed for builder clarity.'],
+ ['3D Visualization & Finishes','Fully modeled 3D visuals that bring your space to life before construction begins.'],
+ ['Refinement & Final Delivery','Final adjustments for a cohesive design, delivered as a complete digital presentation package.']
+];
+const SERVICES=[
+ {id:'s-plan',t:'Interior Space Planning',img:'g06.jpg',cls:'',d:'Thoughtful layouts that make every square foot work — designed around how you cook, gather, store and move through your home.',li:['Furniture & flow studies','Room-by-room zoning','Circulation & clearances','Layout options review']},
+ {id:'s-kb',t:'Kitchen & Bathroom Design',img:'g07.jpg',cls:'arch-w',d:'The hardest-working rooms in the home, planned with care. Cabinetry, appliances, fixtures and lighting are coordinated into one cohesive, functional design.',li:['Cabinetry layout','Appliance coordination','Vanity & fixture planning','Storage solutions']},
+ {id:'s-fp',t:'Floor Plan Development',img:'g04.jpg',cls:'draw',d:'Refined floor plans that translate ideas into a clear, measured layout — the foundation every other decision builds upon.',li:['Existing conditions review','Wall & opening adjustments','Cabinetry aligned to plans','Dimensioned layouts']},
+ {id:'s-td',t:'Technical Drawings & Detailing',img:'g11.jpg',cls:'draw',d:'Elevations and dimensions prepared as needed for builder clarity — so what’s designed is exactly what gets built.',li:['Cabinetry elevations','Dimensioned details','Appliance & fixture callouts','Builder-ready digital files']},
+ {id:'s-3d',t:'3D Visualization',img:'g01.jpg',cls:'',d:'Fully modeled, photorealistic visuals that let you walk through your space before construction begins — and make confident decisions early.',li:['Photorealistic renders','Multiple camera views','Lighting & daylight studies','Design iterations']},
+ {id:'s-fm',t:'Finish & Material Selection',img:'g15a.jpg',cls:'arch-w',d:'Stone, wood, metals and tile, curated into a palette that feels intentional — and previewed in 3D so there are no surprises.',li:['Finish palette curation','Stone & tile selection','Hardware & lighting','Visualized in context']}
+];
+const PROJECTS=[
+ {id:'macera-kitchen',t:'Kitchen',ey:'Macera Residence',cat:'kitchen',imgs:['g01.jpg','g09.jpg','g10.jpg','g11.jpg'],d:'Arched walnut doorways, a dark honed-stone island and a brass-detailed range wall — planned from cabinetry elevations through to photorealistic views.',w:'w7',cls:''},
+ {id:'macera-bath',t:'Primary Bath',ey:'Macera Residence',cat:'bath',imgs:['g07.jpg'],d:'A serene primary bath with a freestanding tub, double vanity with a seated makeup station, and soft marble throughout.',w:'w5',cls:'tall arch-c'},
+ {id:'macera-mud',t:'Laundry & Mudroom',ey:'Macera Residence',cat:'mud',imgs:['g02.jpg','g03.jpg'],d:'Deep green cabinetry, brass hooks and a classic checkerboard floor — a hard-working entry that feels just as considered as the main rooms.',w:'w8',cls:''},
+ {id:'pantry',t:'Pantry',ey:'3D Rendering',cat:'pantry',imgs:['g05.jpg','g04.jpg'],d:'A walk-in pantry in rich oxblood millwork with open shelving, integrated appliances and a dimensioned elevation for coordination.',w:'w4',cls:'tall'},
+ {id:'island',t:'Sunlit Island Kitchen',ey:'3D Visualization',cat:'kitchen',imgs:['g06.jpg'],d:'Lantern pendants over a long island with seating for six, warm brick floors and a limestone hood wall.',w:'w6',cls:''},
+ {id:'marble',t:'Marble & Brass Kitchen',ey:'3D Visualization',cat:'kitchen',imgs:['g15a.jpg'],d:'Dramatic veined marble, a plaster hood and black steel windows framing the garden.',w:'w6',cls:''},
+ {id:'oak',t:'White Oak Kitchen',ey:'3D Visualization',cat:'kitchen',imgs:['g15b.jpg'],d:'A white oak island and tall oak storage wall, softened by arched openings and natural light.',w:'w5',cls:'arch-c tall'},
+ {id:'garden',t:'Garden Window Kitchen',ey:'3D Visualization',cat:'kitchen',imgs:['g08.jpg'],d:'Crisp painted cabinetry, glass-front uppers and a marble-lined sink run beneath a wall of windows.',w:'w7',cls:''},
+ {id:'coffer',t:'Coffered Kitchen',ey:'Render & Elevation',cat:'drawing',imgs:['image03.jpg','g04.jpg'],d:'A coffered-ceiling kitchen shown alongside its cabinetry elevation — design intent and builder detail, side by side.',w:'w12',cls:'drawing'}
+];
+const FILTERS=[['all','All'],['kitchen','Kitchens'],['bath','Baths'],['mud','Laundry & Mudroom'],['pantry','Pantry'],['drawing','Drawings']];
+
+/* ---------- build ---------- */
+document.getElementById('marq').innerHTML=Array(2).fill(['Kitchen Design','Bath Design','Interior Space Planning','3D Visualization','Floor Plans','Finish Selection','Technical Detailing'].map(s=>`<span>${s}</span>`).join('')).join('');
+const stepHTML=STEPS.map((s,i)=>`<div class="step rv${i?' d'+Math.min(i,3):''}"><div class="num">0${i+1}</div><h4>${s[0]}</h4><p>${s[1]}</p></div>`).join('');
+document.getElementById('steps').innerHTML=stepHTML;document.getElementById('steps2').innerHTML=stepHTML;
+document.querySelector('#idx .wrap').innerHTML=SERVICES.map(s=>`<a data-anchor="${s.id}">${s.t}</a>`).join('');
+document.getElementById('svcRows').innerHTML=SERVICES.map((s,i)=>`
+ <article class="svc-row" id="${s.id}">
+  <div class="img ${s.cls} rv"><div class="ph zoom ${s.cls==='arch-w'?'arch':''}"><img loading="lazy" src="${A+s.img}" alt="${s.t}"></div></div>
+  <div class="rv d1"><span class="n">0${i+1}</span><h2>${s.t}</h2><p>${s.d}</p><ul>${s.li.map(l=>`<li>${l}</li>`).join('')}</ul>
+   <div style="margin-top:36px"><a class="link" data-go="contact">Discuss Your Project →</a></div></div>
+ </article>`).join('');
+document.getElementById('filters').innerHTML=FILTERS.map((f,i)=>`<button data-f="${f[0]}" class="${i?'':'on'}">${f[1]}</button>`).join('');
+document.getElementById('pgrid').innerHTML=PROJECTS.map((p,i)=>`
+ <div class="pcard zoom rv ${p.w} ${p.cls}" data-proj="${p.id}" data-cat="${p.cat}">
+  <div class="ph"><img loading="lazy" src="${A+p.imgs[0]}" alt="${p.ey} — ${p.t}"></div>
+  <h4>${p.t}</h4><div class="cap"><span>${p.ey}</span><span>${p.imgs.length>1?p.imgs.length+' views':'1 view'}</span></div>
+ </div>`).join('');
+document.querySelector('.pcard.w12')?.style.setProperty('grid-column','span 12');
+document.getElementById('featImg').src=A+'g01.jpg';
+
+/* ---------- reveal ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+function observe(root){root.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el))}
+
+/* ---------- router ---------- */
+const PAGES=['home','about','services','portfolio','contact'];
+const hdr=document.getElementById('hdr');
+function go(page,anchor,push=true){
+  if(!PAGES.includes(page))page='home';
+  document.body.classList.remove('menu');
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id==='p-'+page));
+  document.querySelectorAll('.nav a[data-go]').forEach(a=>a.classList.toggle('on',a.dataset.go===page&&!a.classList.contains('btn')));
+  if(push&&location.hash!=='#'+page)history.pushState(null,'','#'+page);
+  try{localStorage.setItem('flora-page',page)}catch(e){}
+  const pg=document.getElementById('p-'+page);
+  observe(pg);
+  if(anchor){requestAnimationFrame(()=>{const el=document.getElementById(anchor);if(el)window.scrollTo({top:el.getBoundingClientRect().top+scrollY-140,behavior:'smooth'})})}
+  else window.scrollTo({top:0,behavior:'instant'});
+  onScroll();
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-go]');
+  if(a){e.preventDefault();go(a.dataset.go,a.dataset.anchor);return}
+  const an=e.target.closest('.idx [data-anchor]');
+  if(an){const el=document.getElementById(an.dataset.anchor);window.scrollTo({top:el.getBoundingClientRect().top+scrollY-130,behavior:'smooth'});return}
+  const pj=e.target.closest('[data-proj]');
+  if(pj){openLB(pj.dataset.proj)}
+});
+window.addEventListener('popstate',()=>go(location.hash.slice(1)||'home',null,false));
+document.getElementById('burger').onclick=()=>document.body.classList.toggle('menu');
+
+/* header state + services index */
+function onScroll(){
+  hdr.classList.toggle('solid',scrollY>30);
+  const sp=document.getElementById('p-services');
+  if(sp.classList.contains('on')){
+    let cur=null;SERVICES.forEach(s=>{const el=document.getElementById(s.id);if(el.getBoundingClientRect().top<240)cur=s.id});
+    document.querySelectorAll('.idx a').forEach(a=>a.classList.toggle('on',a.dataset.anchor===cur));
+  }
+}
+addEventListener('scroll',onScroll,{passive:true});
+
+/* ---------- portfolio filters ---------- */
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.getElementById('feat').style.display=(f==='all'||f==='kitchen')?'':'none';
+  document.querySelectorAll('.pcard').forEach(c=>{
+    const show=f==='all'||c.dataset.cat===f||(f==='drawing'&&['pantry','macera-kitchen'].includes(c.dataset.proj));
+    c.classList.toggle('hide',!show);
+    if(show){c.classList.add('in')}
+  });
+});
+
+/* ---------- lightbox ---------- */
+const lb=document.getElementById('lb'),lbI=document.getElementById('lbI');let cur=null,ci=0;
+function openLB(id){cur=PROJECTS.find(p=>p.id===id);if(!cur)return;ci=0;
+  document.getElementById('lbEy').textContent=cur.ey;document.getElementById('lbT').textContent=cur.t;document.getElementById('lbD').textContent=cur.d;
+  document.getElementById('lbTh').innerHTML=cur.imgs.length>1?cur.imgs.map((s,i)=>`<button data-i="${i}"><img src="${A+s}" alt=""></button>`).join(''):'';
+  showI();lb.classList.add('on');document.body.style.overflow='hidden'}
+function showI(){lbI.style.opacity=0;setTimeout(()=>{lbI.src=A+cur.imgs[ci];lbI.alt=cur.ey+' — '+cur.t;lbI.style.opacity=1},150);
+  document.querySelectorAll('#lbTh button').forEach((b,i)=>b.classList.toggle('on',i===ci));
+  const multi=cur.imgs.length>1;document.getElementById('lbP').style.display=document.getElementById('lbN').style.display=multi?'':'none'}
+function step(d){if(!cur)return;ci=(ci+d+cur.imgs.length)%cur.imgs.length;showI()}
+function closeLB(){lb.classList.remove('on');document.body.style.overflow='';cur=null}
+document.getElementById('lbX').onclick=closeLB;document.getElementById('lbP').onclick=()=>step(-1);document.getElementById('lbN').onclick=()=>step(1);
+document.getElementById('lbTh').onclick=e=>{const b=e.target.closest('button');if(b){ci=+b.dataset.i;showI()}};
+lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('lb-stage'))closeLB()});
+addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)});
+
+/* ---------- form ---------- */
+document.getElementById('inq').addEventListener('submit',e=>{
+  e.preventDefault();const f=e.target;let ok=true;
+  const chk=(el,cond)=>{el.classList.toggle('bad',!cond);if(!cond)ok=false};
+  chk(f.name.closest('.fld'),f.name.value.trim().length>1);
+  chk(f.email.closest('.fld'),/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value));
+  chk(document.getElementById('f-type'),!!f.querySelector('[name=type]:checked'));
+  chk(f.desc.closest('.fld'),f.desc.value.trim().length>3);
+  if(!ok)return;
+  document.getElementById('thxName').textContent=', '+f.name.value.trim().split(' ')[0];
+  document.getElementById('formBox').classList.add('sent');
+});
+document.getElementById('inq').addEventListener('input',e=>{const fl=e.target.closest('.fld');if(fl)fl.classList.remove('bad')});
+
+/* ---------- init ---------- */
+let start=location.hash.slice(1);
+if(!PAGES.includes(start)){try{start=localStorage.getItem('flora-page')}catch(e){}}
+go(start||'home',null,false);
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
